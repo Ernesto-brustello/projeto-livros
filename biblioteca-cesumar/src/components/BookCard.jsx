@@ -1,10 +1,14 @@
 export default function BookCard({ book, onDetails, onEdit, onDelete }) {
   return (
-    <article className="book-card">
+    <article className="book-card book-bar">
       <div className="book-spine" />
       <div className="book-body">
         <div className="book-meta">
-          <div className="book-icon">📖</div>
+          {book.coverUrl ? (
+            <img className="book-cover" src={book.coverUrl} alt={`Capa de ${book.title}`} />
+          ) : (
+            <div className="book-icon">📖</div>
+          )}
           <div>
             <h2>{book.title}</h2>
             <p className="book-author">{book.author}</p>

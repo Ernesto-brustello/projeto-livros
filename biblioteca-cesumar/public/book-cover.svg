@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" role="img" aria-label="Capa de mangá com raposa estilizada">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#cce7ff" />
+      <stop offset="100%" stop-color="#edf6ff" />
+    </linearGradient>
+    <linearGradient id="circleGlow" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#cce7ff" stop-opacity="0.7" />
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" fill="url(#sky)" />
+  <circle cx="240" cy="240" r="200" fill="url(#circleGlow)" stroke="#2a3f71" stroke-width="18" />
+  <path d="M160 290 C160 160 240 120 320 220 C320 280 300 320 260 340 C220 360 180 340 160 290 Z" fill="#fff" stroke="#2a3f71" stroke-width="10" />
+  <path d="M160 290 C170 320 180 340 220 350 C230 355 240 356 250 352 C280 340 300 300 300 260 C300 230 280 200 260 190 C240 180 220 170 200 180 C180 190 160 220 160 290 Z" fill="#fef0f2" />
+  <path d="M170 180 C145 160 130 130 148 106 C170 78 213 86 240 112 C267 86 310 78 332 106 C350 130 335 160 310 180 C301 186 285 190 268 190 C250 190 241 186 230 177 C219 168 200 162 180 168 C173 171 170 175 170 180 Z" fill="#fff" stroke="#2a3f71" stroke-width="8" />
+  <path d="M330 220 C360 220 380 245 380 275 C380 305 360 330 330 330 C300 330 280 305 280 275 C280 245 300 220 330 220 Z" fill="#fff" stroke="#2a3f71" stroke-width="10" />
+  <path d="M330 220 C345 220 358 233 358 248 C358 263 345 276 330 276 C315 276 302 263 302 248 C302 233 315 220 330 220 Z" fill="#f23a45" />
+  <path d="M150 220 C120 220 100 245 100 275 C100 305 120 330 150 330 C180 330 200 305 200 275 C200 245 180 220 150 220 Z" fill="#fff" stroke="#2a3f71" stroke-width="10" />
+  <path d="M150 220 C163 220 174 233 174 248 C174 263 163 276 150 276 C137 276 126 263 126 248 C126 233 137 220 150 220 Z" fill="#f23a45" />
+  <path d="M190 252 C190 268 204 280 224 280 C244 280 258 268 258 252" stroke="#2a3f71" stroke-width="10" stroke-linecap="round" fill="none" />
+  <path d="M192 198 C196 172 220 158 238 166" stroke="#f23a45" stroke-width="16" stroke-linecap="round" fill="none" />
+  <path d="M308 198 C304 172 280 158 262 166" stroke="#f23a45" stroke-width="16" stroke-linecap="round" fill="none" />
+  <circle cx="160" cy="120" r="12" fill="#ffdce5" opacity="0.75" />
+  <circle cx="340" cy="120" r="14" fill="#ffdce5" opacity="0.9" />
+  <circle cx="270" cy="86" r="10" fill="#ffdce5" opacity="0.85" />
+</svg>
