@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^cmd /c \"cd /d c:\\\\Users\\\\User\\\\OneDrive\\\\Documentos\\\\GitHub\\\\projeto livros\\\\biblioteca-cesumar && npm run build\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}

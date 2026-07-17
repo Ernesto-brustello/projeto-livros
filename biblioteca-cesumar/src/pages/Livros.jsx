@@ -1,18 +1,17 @@
 import { useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useBookContext } from '../contexts/BookContext'
-import Header from '../components/Header'
 import SearchBar from '../components/SearchBar'
 import BookCard from '../components/BookCard'
 import BookForm from '../components/BookForm'
-import BookDetails from '../components/BookDetails'
 import DeleteModal from '../components/DeleteModal'
+import EmptyState from '../components/EmptyState'
 
 export default function Livros() {
-  const { books, loading, error, addBook, updateBook, deleteBook } = useBookContext()
+  const navigate = useNavigate()
+  const { books, loading, processing, error, addBook, updateBook, deleteBook } = useBookContext()
   const [search, setSearch] = useState('')
-  const [selectedBook, setSelectedBook] = useState(null)
   const [isFormOpen, setIsFormOpen] = useState(false)
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false)
   const [deleteTarget, setDeleteTarget] = useState(null)
   const [editingBook, setEditingBook] = useState(null)
 
@@ -39,9 +38,8 @@ export default function Livros() {
     setIsFormOpen(true)
   }
 
-  const openDetailsModal = (book) => {
-    setSelectedBook(book)
-    setIsDetailsOpen(true)
+  const openDetailsPage = (book) => {
+    navigate(`/livros/${book.id}`)
   }
 
   const handleSaveBook = (book) => {
@@ -59,8 +57,10 @@ export default function Livros() {
   }
 
   const confirmDelete = () => {
-    deleteBook(deleteTarget.id)
-    setDeleteTarget(null)
+    if (deleteTarget) {
+      deleteBook(deleteTarget.id)
+      setDeleteTarget(null)
+    }
   }
 
   const cancelDelete = () => {
@@ -71,11 +71,15 @@ export default function Livros() {
     <div className="page-shell">
       <SearchBar value={search} onChange={setSearch} onAdd={openAddModal} />
 
-      {loading && <p>Carregando livros...</p>}
+      {loading && <p className="page-note">Carregando livros...</p>}
+      {processing && <p className="page-note">Aplicando alterações...</p>}
       {error && <p className="field-error">{error}</p>}
 
       {!loading && filteredBooks.length === 0 && (
-        <p>Nenhum livro encontrado.</p>
+        <EmptyState
+          title="Nenhum livro encontrado"
+          description="Tente outro termo ou cadastre um novo livro para começar." 
+        />
       )}
 
       <div className="cards-wrapper">
@@ -83,7 +87,7 @@ export default function Livros() {
           <BookCard
             key={book.id}
             book={book}
-            onDetails={openDetailsModal}
+            onDetails={openDetailsPage}
             onEdit={openEditModal}
             onDelete={handleDeleteRequest}
           />
@@ -95,13 +99,6 @@ export default function Livros() {
           initialData={editingBook}
           onCancel={() => setIsFormOpen(false)}
           onSubmit={handleSaveBook}
-        />
-      )}
-
-      {isDetailsOpen && (
-        <BookDetails
-          book={selectedBook}
-          onClose={() => setIsDetailsOpen(false)}
         />
       )}
 

@@ -1,4 +1,6 @@
-export default function BookCard({ book, onDetails, onEdit, onDelete }) {
+import { memo } from 'react'
+
+function BookCard({ book, onDetails, onEdit, onDelete }) {
   return (
     <article className="book-card book-bar">
       <div className="book-spine" />
@@ -37,3 +39,5 @@ export default function BookCard({ book, onDetails, onEdit, onDelete }) {
     </article>
   )
 }
+
+export default memo(BookCard)

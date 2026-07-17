@@ -5,7 +5,7 @@
     --surface: #fcfdff;
     --surface-soft: rgba(122, 169, 214, 0.15);
     --text: #1f2937;
-    --muted: #64748b;
+    --muted: lch(48.34% 14.52 268.7);
     --border: rgba(122, 169, 214, 0.24);
     --shadow: 0 12px 30px rgba(122, 169, 214, 0.12);
     --brand: #7AA9D6;
@@ -319,6 +319,65 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+.layout-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.breadcrumb-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.breadcrumb-separator {
+    margin: 0 6px;
+}
+
+.page-transition {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 280ms ease, transform 280ms ease;
+}
+
+.page-transition.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.breadcrumb-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.breadcrumb-separator {
+    margin: 0 6px;
+}
+
+.page-transition {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 280ms ease, transform 280ms ease;
+}
+
+.page-transition.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .page-shell h1 {

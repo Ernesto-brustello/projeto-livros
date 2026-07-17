@@ -1,47 +1,64 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import * as bookService from '../services/bookService'
+import * as bookRequests from '../services/bookRequests.js'
 
-const BookContext = createContext()
+const BookContext = createContext(null)
 
 export function BookProvider({ children }) {
   const [books, setBooks] = useState([])
   const [loading, setLoading] = useState(true)
+  const [processing, setProcessing] = useState(false)
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    try {
-      const storedBooks = bookService.loadBooks()
-      setBooks(storedBooks)
-    } catch (err) {
-      console.error(err)
-      setError('Não foi possível carregar os livros.')
-    } finally {
-      setLoading(false)
+    let isMounted = true
+
+    const loadBooks = async () => {
+      try {
+        const storedBooks = await bookRequests.fetchBooks()
+        if (isMounted) {
+          setBooks(storedBooks)
+        }
+      } catch (err) {
+        console.error(err)
+        if (isMounted) {
+          setError('Não foi possível carregar os livros.')
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false)
+        }
+      }
+    }
+
+    loadBooks()
+
+    return () => {
+      isMounted = false
     }
   }, [])
 
-  const saveBooks = (nextBooks) => {
-    bookService.saveBooks(nextBooks)
-    setBooks(nextBooks)
+  const handleRequest = async (request) => {
+    setProcessing(true)
+
+    try {
+      const nextBooks = await request()
+      setBooks(nextBooks)
+    } catch (err) {
+      console.error(err)
+      setError('Não foi possível atualizar os livros.')
+    } finally {
+      setProcessing(false)
+    }
   }
 
-  const addBook = (book) => {
-    const nextBooks = bookService.addBook(books, book)
-    saveBooks(nextBooks)
-  }
-
-  const updateBook = (book) => {
-    const nextBooks = bookService.updateBook(books, book)
-    saveBooks(nextBooks)
-  }
-
-  const deleteBook = (id) => {
-    const nextBooks = bookService.deleteBook(books, id)
-    saveBooks(nextBooks)
-  }
+  const addBook = (book) => handleRequest(() => bookRequests.createBook(book))
+  const updateBook = (book) => handleRequest(() => bookRequests.editBook(book))
+  const deleteBook = (id) => handleRequest(() => bookRequests.removeBook(id))
 
   return (
-    <BookContext.Provider value={{ books, loading, error, addBook, updateBook, deleteBook }}>
+    <BookContext.Provider
+      value={{ books, loading, processing, error, addBook, updateBook, deleteBook }}
+    >
       {children}
     </BookContext.Provider>
   )

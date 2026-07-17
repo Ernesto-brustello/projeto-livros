@@ -1,12 +1,5 @@
 import { NavLink } from 'react-router-dom'
-
-const navigation = [
-  { path: '/', label: 'Dashboard' },
-  { path: '/livros', label: 'Livros' },
-  { path: '/categorias', label: 'Categorias' },
-  { path: '/usuarios', label: 'Usuários' },
-  { path: '/configuracoes', label: 'Configurações' },
-]
+import { navigationRoutes } from '../data/navigation.js'
 
 export default function Header({ title, subtitle }) {
   return (
@@ -22,7 +15,7 @@ export default function Header({ title, subtitle }) {
       </div>
 
       <nav className="top-nav" aria-label="Navegação principal">
-        {navigation.map((item) => (
+        {navigationRoutes.map((item) => (
           <NavLink
             key={item.path}
             to={item.path}

@@ -63,80 +63,45 @@ export default function BookForm({ initialData, onCancel, onSubmit }) {
     onSubmit(form)
   }
 
+  const formFields = [
+    { key: 'title', label: 'Título', value: form.title, error: errors.title, fullWidth: false },
+    { key: 'author', label: 'Autor', value: form.author, error: errors.author, fullWidth: false },
+    { key: 'isbn', label: 'ISBN', value: form.isbn, error: errors.isbn, fullWidth: false },
+    { key: 'year', label: 'Ano', value: form.year, error: errors.year, fullWidth: false },
+    { key: 'category', label: 'Categoria', value: form.category, error: errors.category, fullWidth: false },
+    { key: 'coverUrl', label: 'Imagem da capa (URL)', value: form.coverUrl, error: null, fullWidth: false },
+    { key: 'description', label: 'Descrição', value: form.description, error: errors.description, fullWidth: true },
+  ]
+
   return (
     <div className="modal-overlay">
       <div className="modal-content book-form-modal">
         <h2>{initialData ? 'Editar livro' : 'Adicionar livro'}</h2>
 
         <div className="form-grid">
-          <label>
-            Título
-            <input
-              type="text"
-              value={form.title}
-              onChange={(event) => handleChange('title', event.target.value)}
-            />
-            {errors.title && <span className="field-error">{errors.title}</span>}
-          </label>
+          {formFields.map((field) => {
+            const isTextarea = field.key === 'description'
 
-          <label>
-            Autor
-            <input
-              type="text"
-              value={form.author}
-              onChange={(event) => handleChange('author', event.target.value)}
-            />
-            {errors.author && <span className="field-error">{errors.author}</span>}
-          </label>
-
-          <label>
-            ISBN
-            <input
-              type="text"
-              value={form.isbn}
-              onChange={(event) => handleChange('isbn', event.target.value)}
-            />
-            {errors.isbn && <span className="field-error">{errors.isbn}</span>}
-          </label>
-
-          <label>
-            Ano
-            <input
-              type="text"
-              value={form.year}
-              onChange={(event) => handleChange('year', event.target.value)}
-            />
-            {errors.year && <span className="field-error">{errors.year}</span>}
-          </label>
-
-          <label>
-            Categoria
-            <input
-              type="text"
-              value={form.category}
-              onChange={(event) => handleChange('category', event.target.value)}
-            />
-            {errors.category && <span className="field-error">{errors.category}</span>}
-          </label>
-
-          <label>
-            Imagem da capa (URL)
-            <input
-              type="text"
-              value={form.coverUrl}
-              onChange={(event) => handleChange('coverUrl', event.target.value)}
-            />
-          </label>
-
-          <label className="full-width">
-            Descrição
-            <textarea
-              rows="4"
-              value={form.description}
-              onChange={(event) => handleChange('description', event.target.value)}
-            />
-            {errors.description && <span className="field-error">{errors.description}</span>}
-          </label>
+            return (
+              <label key={field.key} className={field.fullWidth ? 'full-width' : ''}>
+                {field.label}
+                {isTextarea ? (
+                  <textarea
+                    rows="4"
+                    value={field.value}
+                    onChange={(event) => handleChange(field.key, event.target.value)}
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    value={field.value}
+                    onChange={(event) => handleChange(field.key, event.target.value)}
+                  />
+                )}
+                {field.error && <span className="field-error">{field.error}</span>}
+              </label>
+            )
+          })}
         </div>
 
         <div className="modal-actions">
